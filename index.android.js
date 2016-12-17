@@ -16,7 +16,8 @@ import {
   Dimensions,
   View,
   ToolbarAndroid,
-  Alert
+  Alert,
+  RefreshControl
 } from 'react-native';
 
 var {height, width} = Dimensions.get('window');
@@ -28,7 +29,8 @@ export default class listApp extends Component {
     super(props);
 
     this.state = {
-      images: []
+      images: [],
+      refreshing: false,
     };
   }
 
@@ -61,6 +63,12 @@ export default class listApp extends Component {
 
      this.setState({ images: datas});
   }
+
+  _onRefresh() {
+    this.setState({refreshing: true});
+
+    this.setState({refreshing: false});
+  }
   
  
   render() {
@@ -74,14 +82,21 @@ export default class listApp extends Component {
       m[imgId].booking = (m[imgId].booking)?false: true;
       this.setState({images : m})
     };
-
+    
     return (
       <View>
         <ToolbarAndroid actions={toolbarActions}
-                        logo={require('./icon/ic_message_black/ic_message_black.png')} 
+                        // logo={require('./icon/ic_message_black/ic_message_black.png')} 
                         title="ILook" 
                         style={styles.toolbar}/>
-        <ScrollView>
+        <ScrollView 
+          refreshControl={
+            <RefreshControl
+              progressViewOffset = {10}
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+          />}
+          >
           {this.state.images.map(function(img) { 
             return <Card key={img.id}
                          booking={img.booking} 
