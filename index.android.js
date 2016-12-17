@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import Card from './compoment/Card'
+
 import {
   AppRegistry,
   StyleSheet,
@@ -14,10 +15,12 @@ import {
   Image,
   Dimensions,
   View,
-  ToolbarAndroid
+  ToolbarAndroid,
+  Alert
 } from 'react-native';
 
 var {height, width} = Dimensions.get('window');
+var nativeImageSource = require('nativeImageSource');
 
 export default class listApp extends Component {
   
@@ -30,58 +33,77 @@ export default class listApp extends Component {
   }
 
   componentDidMount() {
-     this.setState({
-       images:[{
-         id: 1,
+     let datas =
+      [{
+         id: 0,
          url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
-         title: '兩個小孩的托育費用就高達26500元'
+         title: '兩個小孩的托育費用就高達26500元',
+         booking: true
+       },
+       {
+         id: 1,
+         url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
+         title: 'AI金融應用－保險',
+         booking: false
        },
        {
          id: 2,
-         url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
-         title: '兩個小孩的托育費用就高達26500元'
+         url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
+         title: '兩個小孩的托育費用就高達26500元',
+         booking: true
        },
        {
          id: 3,
-         url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
-         title: '兩個小孩的托育費用就高達26500元'
-       },
-       {
-         id: 4,
          url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
-         title: '兩個小孩的托育費用就高達26500元'
-       },
-       ]
-    });
-  }
+         title: '兩個小孩的托育費用就高達26500元',
+         booking: false
+       }];
 
-  _buttonPress() {
-    Alert.alert(
-      'Alert Title',
-      'My Alert Msg',
-      [
-        {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
-      ]
-    )
+     this.setState({ images: datas});
   }
-
+  
+ 
   render() {
+    const routes = [
+      { title: 'First Scene', index: 0},
+      { title: 'Second Scene', index: 1},
+    ];
+
+    buttonPress = (imgId) =>  {
+      let m = this.state.images;
+      m[imgId].booking = (m[imgId].booking)?false: true;
+      this.setState({images : m})
+    };
+
     return (
-      <ScrollView>
-        <ToolbarAndroid title="Hello" />
-        {this.state.images.map(function(img) {
-          return <Card key={img.id} url={img.url} title={img.title} onPress={() => this._buttonPress.bind(this)}/>;
-        })}
-        
-      </ScrollView>
+      <View>
+        <ToolbarAndroid actions={toolbarActions}
+                        logo={require('./icon/ic_message_black/ic_message_black.png')} 
+                        title="ILook" 
+                        style={styles.toolbar}/>
+        <ScrollView>
+          {this.state.images.map(function(img) { 
+            return <Card key={img.id}
+                         booking={img.booking} 
+                         url={img.url} 
+                         title={img.title} 
+                         onPress={this.buttonPress.bind(this, img.id)}/>;
+          })}
+        </ScrollView>
+      </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+var toolbarActions = [
+  {title: 'Feedback', icon: require('./icon/ic_message_black/ic_message_black.png') ,show: 'always'},
+];
 
+const styles = StyleSheet.create({
+  toolbar: {
+    backgroundColor: '#ffffff',
+    height: 50
+  },
 });
 
 AppRegistry.registerComponent('listApp', () => listApp);
