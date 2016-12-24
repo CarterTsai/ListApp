@@ -17,6 +17,7 @@ type Props = {
   title: string;
   url: string;
   booking: boolean;
+  cardType: string,
   onPress: () => mixed;
 };
 
@@ -26,7 +27,7 @@ class Card extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageUrl: (props.booking) ? 
+      bookingimagePath: (props.booking) ? 
                 require('../icon/ic_bookmark/ic_bookmark_black.png') :
                 require('../icon/ic_bookmark/ic_bookmark_border_back.png') 
     }
@@ -36,52 +37,73 @@ class Card extends React.Component {
     let im = (nextProps.booking) ? 
                 require('../icon/ic_bookmark/ic_bookmark_black.png') :
                 require('../icon/ic_bookmark/ic_bookmark_border_back.png') 
-    this.setState({imageUrl: im});
+    this.setState({bookingimagePath: im});
+  }
+
+  renderContent() {
+    if(this.props.cardType != "text") {
+     return  <Image source={{uri: this.props.url}}
+                      style={styles.cardImage} />
+    } else {
+        let content = this.props.content;
+        if(content.length > 100) {
+          content = content.slice(0, 200) + " . . . .";
+        }
+        return <Text style={styles.cardText}>     {content}</Text>
+    }
   }
 
   render() {
     return (<View style={styles.card}>
-            <TouchableHighlight onPress={() => console.log("hello")}>
-              <Image source={{uri: this.props.url}}
-                      style={styles.cardImage} />
-            </ TouchableHighlight>
-            <View style={styles.cardBar}>
-              <TouchableHighlight style={styles.cardBookmarkOutLine}
-                                  underlayColor = {'gainsboro'} 
-                                  onPress={this.props.onPress}>
-                <Image
-                  style={styles.cardBookmark}
-                  source={this.state.imageUrl}
-                />
+              <TouchableHighlight activeOpacity={100} underlayColor='paleturquoise' onPress={() => console.log("hello")}>
+                {this.renderContent()}
               </ TouchableHighlight>
-            </View>
-            <Text style={styles.cardTitle}>{this.props.title}</Text>
-            
+              <View style={styles.cardBar}>
+                <TouchableHighlight style={styles.cardBookmarkOutLine}
+                                    underlayColor = {'gainsboro'} 
+                                    onPress={this.props.onPress}>
+                      <Image
+                        style={styles.cardBookmark}
+                        source={this.state.bookingimagePath}
+                      />
+                </ TouchableHighlight>
+              </View>
+              <Text style={styles.cardTitle}>{this.props.title}</Text>
           </View>);
   }
 };
+
+var imgWidth =  (width * 0.95);
+var offsetWidth = (width - imgWidth) / 2;
 
 const styles = StyleSheet.create({
   card: {
     flex: 1,
     flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    marginTop: 10,
+    marginTop: 5,
     marginBottom: 20,
     paddingHorizontal:0
   },
   cardImage: {
-    width: width * 1,
+    width: width * 0.95 ,
     height: width * 0.9,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
+    marginLeft: offsetWidth,
+    marginRight: offsetWidth,
+  },
+  cardText: {
+    paddingLeft: (width - imgWidth),
+    paddingRight: (width - imgWidth),
+    fontSize: 20,
+    lineHeight: 40,
+    marginBottom: 15,
   },
   cardTitle: {
     fontWeight: 'bold',
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 15
+    marginTop: 15,
   },
   cardBookmarkOutLine: {
     borderRadius: 5

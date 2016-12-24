@@ -30,7 +30,7 @@ export default class listApp extends Component {
     super(props);
 
     this.state = {
-      images: [],
+      infos: [],
       refreshing: false,
       scrollY : 0
     };
@@ -41,14 +41,18 @@ export default class listApp extends Component {
       [{
          id: 0,
          url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
-         title: '兩個小孩的托育費用就高達26500元',
-         booking: true
+         title: '新聞',
+         booking: true,
+         cardType: "text",
+         content: "俄羅斯總統普亭(Vladimir Putin)在周五(23日)的全國年度電視新聞訪問中，向白宮及民主黨人呼籲，面對美國總統當選人川普(Donald Trump)的勝利，不要當一個「病態的輸家」(sore losers)。似乎是回應美國對俄羅斯干預美國大選的指控。訪談中也提到了對核武發展的看法"
        },
        {
          id: 1,
          url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
          title: 'AI金融應用－保險',
-         booking: false
+         booking: false,
+         cardType: "text",
+         content: "kubernetes.io發佈了一個供本地端單機跑kubernetes最精簡的環境minikube，透過minikube可以很快速的使用與測試k8s的功能唷～"
        },
        {
          id: 2,
@@ -63,7 +67,7 @@ export default class listApp extends Component {
          booking: false
        }];
 
-     this.setState({ images: datas});
+     this.setState({ infos: datas});
   }
 
   _onRefresh() {
@@ -86,9 +90,9 @@ export default class listApp extends Component {
     ];
 
     buttonPress = (imgId) => {
-      let m = this.state.images;
+      let m = this.state.infos;
       m[imgId].booking = (m[imgId].booking)?false: true;
-      this.setState({images : m})
+      this.setState({info : m})
     };
 
     onActionSelected = (position) => {
@@ -105,7 +109,7 @@ export default class listApp extends Component {
 
       if((event.nativeEvent.contentOffset.y + this.scrollViewHeight + offsetPage) >= this.contentHeight) {
         
-        let id = this.state.images.length;
+        let id = this.state.infos.length;
 
         var datas = {
          id: id,
@@ -114,10 +118,10 @@ export default class listApp extends Component {
          booking: true
         };
 
-        let d = this.state.images.push(datas);
+        let d = this.state.infos.push(datas);
         
-        this.setState({ images: this.state.images});
-        console.log(this.state.images);
+        this.setState({ infos: this.state.infos});
+        console.log(this.state.infos);
       }
 
     }
@@ -150,14 +154,16 @@ export default class listApp extends Component {
               onRefresh={this._onRefresh.bind(this)}
           />}
           >
-          {this.state.images.map(function(img) { 
+          {this.state.infos.map(function(d) { 
             return <Card 
                          ref={(card) => {_card = card;} }
-                         key={img.id}
-                         booking={img.booking} 
-                         url={img.url} 
-                         title={img.title} 
-                         onPress={this.buttonPress.bind(this, img.id)}/>;
+                         key={d.id}
+                         booking={d.booking}
+                         cardType={d.cardType}
+                         content={d.content}
+                         url={d.url} 
+                         title={d.title} 
+                         onPress={this.buttonPress.bind(this, d.id)}/>;
           })}
         </ScrollView>
       </View>
@@ -171,8 +177,12 @@ var toolbarActions = [
 
 const styles = StyleSheet.create({
   toolbar: {
-    backgroundColor: '#ffffff',
-    height: 50
+    backgroundColor: 'dodgerblue',
+    opacity: .7,
+    borderBottomWidth: 5,
+    borderColor: "cadetblue" ,
+    height: 50,
+    marginBottom: 20
   },
 });
 
