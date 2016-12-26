@@ -8,10 +8,12 @@ const {
   Dimensions,
   TouchableHighlight,
   Alert,
-  Button
+  Button,
+  Platform
 } = ReactNative;
 
 var {height, width} = Dimensions.get('window');
+const iconPath = "../icon";
 
 type Props = {
   title: string;
@@ -80,9 +82,11 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     flexDirection: 'column',
+    top: (Platform.OS === 'ios') ? 10 : 70,
     marginTop: 5,
     marginBottom: 20,
-    paddingHorizontal:0
+    paddingHorizontal:0,
+    backgroundColor: 'white',
   },
   cardImage: {
     width: width * 0.95 ,
@@ -98,6 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 40,
     marginBottom: 15,
+    fontWeight: 'bold',
   },
   cardTitle: {
     fontWeight: 'bold',
