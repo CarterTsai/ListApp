@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import Home from "./app/page/Home";
+import Detail from "./app/page/Detail";
 
 import {
   AppRegistry,
@@ -34,11 +35,14 @@ export default class listApp extends Component {
     navigatorRenderScene = (route, navigator) => {
       _navigator = navigator;
 
+      console.log(route);
+      console.log(navigator);
+
       switch (route.index) {
         case 0:
           return (<Home navigator={navigator} title='首頁'></Home>);
         case 1:
-          return (<Home navigator={navigator} title='首頁'></Home>);
+          return (<Detail navigator={navigator} title='詳細' content={route.content}></Detail>);
       }
     }
 

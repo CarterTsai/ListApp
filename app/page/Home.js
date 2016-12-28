@@ -5,7 +5,8 @@
  */
 
 import React, { Component } from 'react';
-import Card from '../compoment/Card'
+import Card from '../compoment/Card';
+import Detail from "./Detail";
 
 import {
   AppRegistry,
@@ -18,6 +19,7 @@ import {
   Alert,
   RefreshControl,
   Navigator,
+  Platform,
 } from 'react-native';
 
 var {height, width} = Dimensions.get('window');
@@ -92,9 +94,19 @@ export default class Home extends Component {
     ];
 
     buttonPress = (imgId) => {
-      let m = this.state.infos;
-      m[imgId].booking = (m[imgId].booking)?false: true;
-      this.setState({info : m})
+      if(Platform.OS !== 'ios') {
+          this.props.navigator.push({
+            index: 1,
+            content: this.state.infos[imgId].content
+          })
+      } else {
+          this.props.navigator.push({
+            title: "",
+            component: Detail,
+            backButtonTitle: 'Back',
+            passProps: {content: this.state.infos[imgId].content},
+          });
+      }
     };
 
     onActionSelected = (position) => {
@@ -123,7 +135,6 @@ export default class Home extends Component {
         let d = this.state.infos.push(datas);
         
         this.setState({ infos: this.state.infos});
-        console.log(this.state.infos);
       }
 
     }

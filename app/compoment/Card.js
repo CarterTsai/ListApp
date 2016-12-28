@@ -57,7 +57,7 @@ class Card extends React.Component {
 
   render() {
     return (<View style={styles.card}>
-              <TouchableHighlight activeOpacity={100} underlayColor='paleturquoise' onPress={() => console.log("hello")}>
+              <TouchableHighlight activeOpacity={100} underlayColor='paleturquoise' onPress={this.props.onPress}>
                 {this.renderContent()}
               </ TouchableHighlight>
               <View style={styles.cardBar}>

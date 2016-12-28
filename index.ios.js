@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import Home from "./app/page/Home";
+import Detail from "./app/page/Detail";
 
 import {
   AppRegistry,
@@ -45,7 +46,7 @@ export default class listApp extends Component {
             initialRoute={routes[0]}
             style={{flex: 1}}
             initialRouteStack={routes}
-            renderScene={navigatorRenderScene}/>
+            />
     );
   }
 }
