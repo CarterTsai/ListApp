@@ -28,21 +28,21 @@ export default class listApp extends Component {
   
   render() {
     const routes = [
-      {title: 'First Scene', index: 0},
-      {title: 'Second Scene', index: 1},
+      {title: 'First Scene', index: 0 , info: ""},
+      {title: 'Second Scene', index: 1, info: ""},
     ];
 
     navigatorRenderScene = (route, navigator) => {
       _navigator = navigator;
 
       console.log(route);
-      console.log(navigator);
+      console.log(navigator.props);
 
       switch (route.index) {
         case 0:
           return (<Home navigator={navigator} title='首頁'></Home>);
         case 1:
-          return (<Detail navigator={navigator} title='詳細' content={route.content}></Detail>);
+          return (<Detail navigator={navigator} title='詳細' info={route.info}></Detail>);
       }
     }
 

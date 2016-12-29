@@ -45,6 +45,26 @@ export default class Detail extends Component {
 
     this.setState({refreshing: false});
   }
+
+  renderContent() {
+    console.log(this.props.info);
+    if(this.props.info.cardType === 'text') {
+      return (<Text style={styles.content}>
+                {this.props.info.content}
+              </Text>)
+    } else {
+      return (
+            <View>
+              
+              <Image
+                  style={styles.image}
+                  source={{uri : this.props.info.imgUrl}}
+                />
+              <Text style={styles.title}>{this.props.info.title}</Text>
+            </View>
+            )
+    }
+  }
   
  
   render() {
@@ -118,9 +138,7 @@ export default class Detail extends Component {
           //      onRefresh={this._onRefresh.bind(this)}
           // />}
           >
-          <Text style={styles.content}>
-            {this.props.content}
-          </Text>
+          {this.renderContent()}
         </ScrollView>
       </View>
     );
@@ -131,6 +149,9 @@ var toolbarActions = [
   {title: 'Chat', icon: require('../icon/ic_message_black/ic_message_black.png') ,show: 'always'},
 ];
 
+var imgWidth =  (width * 0.95);
+var offsetWidth = (width - imgWidth) / 2;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -140,6 +161,15 @@ const styles = StyleSheet.create({
     marginBottom: (Platform.OS === 'ios') ? 10 : 65,
     paddingHorizontal:0,
     backgroundColor: 'white',
+  },
+  image: {
+    width: width ,
+    height: width,
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 25,
+    padding: 15
   },
   content: {
     fontSize: 25,

@@ -17,7 +17,7 @@ const iconPath = "../icon";
 
 type Props = {
   title: string;
-  url: string;
+  imgUrl: string;
   booking: boolean;
   cardType: string,
   onPress: () => mixed;
@@ -44,33 +44,34 @@ class Card extends React.Component {
 
   renderContent() {
     if(this.props.cardType != "text") {
-     return  <Image source={{uri: this.props.url}}
+     return  <Image source={{uri: this.props.imgUrl}}
                       style={styles.cardImage} />
     } else {
         let content = this.props.content;
         if(content.length > 100) {
           content = content.slice(0, 200) + " . . . .";
         }
+        // content的空格是為了縮排
         return <Text style={styles.cardText}>     {content}</Text>
     }
   }
 
   render() {
     return (<View style={styles.card}>
+               <Text style={styles.cardTitle}>{this.props.title}</Text>
               <TouchableHighlight activeOpacity={100} underlayColor='paleturquoise' onPress={this.props.onPress}>
                 {this.renderContent()}
               </ TouchableHighlight>
               <View style={styles.cardBar}>
                 <TouchableHighlight style={styles.cardBookmarkOutLine}
                                     underlayColor = {'gainsboro'} 
-                                    onPress={this.props.onPress}>
+                                    onPress={this.props.onBookingPress}>
                       <Image
                         style={styles.cardBookmark}
                         source={this.state.bookingimagePath}
                       />
                 </ TouchableHighlight>
               </View>
-              <Text style={styles.cardTitle}>{this.props.title}</Text>
           </View>);
   }
 };
@@ -108,7 +109,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: 10,
+    marginBottom: 15,
   },
   cardBookmarkOutLine: {
     borderRadius: 5

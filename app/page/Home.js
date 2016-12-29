@@ -44,7 +44,7 @@ export default class Home extends Component {
      let datas =
       [{
          id: 0,
-         url: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
+         imgUrl: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
          title: '新聞',
          booking: true,
          cardType: "text",
@@ -52,7 +52,7 @@ export default class Home extends Component {
        },
        {
          id: 1,
-         url: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
+         imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
          title: 'AI金融應用－保險',
          booking: false,
          cardType: "text",
@@ -60,13 +60,13 @@ export default class Home extends Component {
        },
        {
          id: 2,
-         url: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
+         imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
          title: '兩個小孩的托育費用就高達26500元',
          booking: true
        },
        {
          id: 3,
-         url: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
+         imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
          title: '兩個小孩的托育費用就高達26500元',
          booking: false
        }];
@@ -93,21 +93,27 @@ export default class Home extends Component {
       { title: 'Second Scene', index: 1},
     ];
 
-    buttonPress = (imgId) => {
+    buttonPress = (cardID) => {
       if(Platform.OS !== 'ios') {
           this.props.navigator.push({
             index: 1,
-            content: this.state.infos[imgId].content
+            info: this.state.infos[cardID],
           })
       } else {
           this.props.navigator.push({
             title: "",
             component: Detail,
             backButtonTitle: 'Back',
-            passProps: {content: this.state.infos[imgId].content},
+            passProps: {info: this.state.infos[cardID]},
           });
       }
     };
+
+    bookingPress = (cardID) => {
+      let m = this.state.infos;		
+      m[cardID].booking = (m[cardID].booking)?false: true;
+      this.setState({info : m})
+    }
 
     onActionSelected = (position) => {
       if (position === 0) {
@@ -127,7 +133,7 @@ export default class Home extends Component {
 
         var datas = {
          id: id,
-         url: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
+         imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
          title: '兩個小孩的托育費用就高達26500元',
          booking: true
         };
@@ -168,8 +174,9 @@ export default class Home extends Component {
                          booking={d.booking}
                          cardType={d.cardType}
                          content={d.content}
-                         url={d.url} 
+                         imgUrl={d.imgUrl} 
                          title={d.title} 
+                         onBookingPress={this.bookingPress.bind(this, d.id)}
                          onPress={this.buttonPress.bind(this, d.id)}/>;
           })}
         </ScrollView>
