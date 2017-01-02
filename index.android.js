@@ -14,6 +14,7 @@ import {
   View,
   Navigator,
   Text,
+  TouchableHighlight,
 } from 'react-native';
 
 export default class listApp extends Component {
@@ -25,6 +26,33 @@ export default class listApp extends Component {
   componentDidMount() {
 
   }
+
+  backHome(navigator) {
+    navigator.pop()
+  }
+
+  navigationLeftButton (route, navigator, index, navState) {
+    if(route.index === 1) {
+      return (
+             <TouchableHighlight activeOpacity={100}
+                                 style={styles.navBarTouch}
+                                 underlayColor='paleturquoise' 
+                                 onPress={() => navigator.pop()}>
+                <Text style={styles.navBarButton}>Back</Text>
+             </TouchableHighlight>);
+    } else {
+      return (<Text></Text>);
+    }
+  }
+
+  navigationRightButton (route, navigator, index, navState) {
+    // if(route.index !== 1) {
+    //   return (<Text style={styles.navBarButton}>Next</Text>);
+    // } else {
+      return (<Text></Text>);
+    // }
+  }
+  
   
   render() {
     const routes = [
@@ -56,10 +84,8 @@ export default class listApp extends Component {
             <Navigator.NavigationBar
               navigationStyles={Navigator.NavigationBar.StylesIOS}
               routeMapper={{
-                LeftButton: (route, navigator, index, navState) =>
-                  { return (<Text></Text>); },
-                RightButton: (route, navigator, index, navState) =>
-                  { return (<Text></Text>); },
+                LeftButton: this.navigationLeftButton,
+                RightButton: this.navigationRightButton,
                 Title: (route, navigator, index, navState) =>
                   { return (<Text style={{fontSize: 20, fontWeight: 'bold' ,color: "#000000"}}>iLook</Text>); },
               }}
@@ -88,6 +114,17 @@ var styles = StyleSheet.create({
       justifyContent: 'center',
       height: 62,
       flexDirection: 'row'
+    }, 
+    navBarButton: {
+      fontSize: 18, 
+      fontWeight: 'bold' ,
+      color: "#5f9ea0",
+      paddingLeft: 10,
+      paddingRight: 10,
+    },
+    navBarTouch: {
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
     }
 });
 
