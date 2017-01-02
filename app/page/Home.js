@@ -154,7 +154,7 @@ export default class Home extends Component {
     }
 
     return (
-      <View>
+      <View style={styles.viewBody}>
         <ScrollView 
           onScroll={(event: Object) => loadData(event)}
           ref={(scrollView) => { _scrollView = scrollView; }}
@@ -190,6 +190,9 @@ var toolbarActions = [
 ];
 
 const styles = StyleSheet.create({
+  viewBody: {
+    backgroundColor: '#FFFFFF',
+  },
   toolbar: {
     backgroundColor: 'dodgerblue',
     opacity: .7,
