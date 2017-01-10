@@ -101,7 +101,7 @@ export default class Home extends Component {
           })
       } else {
           this.props.navigator.push({
-            title: "",
+            title: this.state.infos[cardID].title,
             component: Detail,
             backButtonTitle: 'Back',
             passProps: {info: this.state.infos[cardID]},
