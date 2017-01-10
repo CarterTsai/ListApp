@@ -90,12 +90,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   cardImage: {
-    width: width * 0.95 ,
-    height: width * 0.9,
+    width: width * 1 ,
+    height: width * 1,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    marginLeft: offsetWidth,
-    marginRight: offsetWidth,
+    marginLeft: 0,
+    marginRight: 0,
   },
   cardText: {
     paddingLeft: (width - imgWidth),
