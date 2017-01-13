@@ -12,6 +12,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  TextInput,
   ScrollView,
   Image,
   Dimensions,
@@ -167,15 +168,20 @@ export default class Home extends Component {
               onRefresh={this._onRefresh.bind(this)}
           />}
           >
-          {this.state.infos.map(function(d) { 
-            return <Card 
+           <TextInput
+            style={styles.filterInput}
+            onChangeText={(text) => this.setState({text})}
+            value={this.state.text}
+          />
+          {this.state.infos.map(function(d) {
+            return <Card
                          ref={(card) => {_card = card;} }
                          key={d.id}
                          booking={d.booking}
                          cardType={d.cardType}
                          content={d.content}
-                         imgUrl={d.imgUrl} 
-                         title={d.title} 
+                         imgUrl={d.imgUrl}
+                         title={d.title}
                          onBookingPress={this.bookingPress.bind(this, d.id)}
                          onPress={this.buttonPress.bind(this, d.id)}/>;
           })}
@@ -192,6 +198,20 @@ var toolbarActions = [
 const styles = StyleSheet.create({
   viewBody: {
     backgroundColor: '#FFFFFF',
+  },
+  filterInput: {
+    borderRadius: 5,
+    marginTop: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    height: 35, 
+    borderColor: 'gray', 
+    borderWidth : 1,
+    borderTopWidth : 0,
+    borderRightWidth : 0,
+    borderBottomWidth : 1,
+    borderLeftWidth : 1,
+    padding: 8,
   },
   toolbar: {
     backgroundColor: 'dodgerblue',

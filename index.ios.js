@@ -46,6 +46,7 @@ export default class listApp extends Component {
             initialRoute={routes[0]}
             style={{flex: 1}}
             initialRouteStack={routes}
+            interactivePopGestureEnabled={true}
             />
     );
   }

@@ -169,10 +169,12 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 25,
-    padding: 15
+    padding: 15,
   },
   content: {
-    fontSize: 25,
-    padding: 15
+    fontSize: 20,
+    padding: 15,
+    lineHeight: 40,
+    fontWeight: 'bold',
   },
 });
