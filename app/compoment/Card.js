@@ -9,7 +9,8 @@ const {
   TouchableHighlight,
   Alert,
   Button,
-  Platform
+  Platform,
+  TouchableOpacity,
 } = ReactNative;
 
 var {height, width} = Dimensions.get('window');
@@ -56,6 +57,20 @@ class Card extends React.Component {
     }
   }
 
+  onButtonPress() {
+
+  }
+
+  renderProductBtn() {
+    if(this.props.cardType === "product") {
+      return (<TouchableOpacity style={styles.orderButton} onPress={this.onButtonPress}>
+                   <Text style={styles.orderButtonText}> 立即購買</Text>
+              </TouchableOpacity>)
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (<View style={styles.card}>
                <Text style={styles.cardTitle}>{this.props.title}</Text>
@@ -72,12 +87,15 @@ class Card extends React.Component {
                       />
                 </ TouchableHighlight>
               </View>
+              {this.renderProductBtn()}
           </View>);
   }
 };
 
 var imgWidth =  (width * 0.95);
 var offsetWidth = (width - imgWidth) / 2;
+var cardWidth = width * 0.96;
+var cardMargin = width * 0.02
 
 const styles = StyleSheet.create({
   card: {
@@ -86,11 +104,24 @@ const styles = StyleSheet.create({
     top: (Platform.OS === 'ios') ? 10 : 70,
     marginTop: 5,
     marginBottom: 20,
-    paddingHorizontal:0,
+    paddingHorizontal: 0,
     backgroundColor: 'white',
+    borderBottomWidth: 0,
+    borderBottomColor: "#ccc",
+    paddingBottom: 15,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width:1
+    },
+    width: cardWidth,
+    marginLeft: cardMargin,
+    marginRight: cardMargin,
   },
   cardImage: {
-    width: width * 1 ,
+    width: cardWidth,
     height: width * 1,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
@@ -125,6 +156,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingHorizontal: 10
+  },
+  orderButton: {
+    margin: 20,
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#406E9F',
+    borderRadius: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  orderButtonText: {
+    fontSize: 20,
+    color: "#ffffff"
   }
 });
 

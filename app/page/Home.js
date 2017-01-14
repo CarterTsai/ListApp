@@ -30,7 +30,7 @@ var NativeMethodsMixin = require('NativeMethodsMixin');
 const iconPath = "../icon";
 
 export default class Home extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -53,26 +53,40 @@ export default class Home extends Component {
        },
        {
          id: 1,
-         imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
-         title: 'AI金融應用－保險',
+         imgUrl: 'https://mart.ibon.com.tw/mdz_file/item/07/02/06/1612/16120003563G_intr_l_1_161207165645.jpg',
+         title: '【亞尼克菓子工房】十勝生乳捲-雙捲禮盒(原味&原味)',
          booking: false,
-         cardType: "text",
-         content: "kubernetes.io發佈了一個供本地端單機跑kubernetes最精簡的環境minikube，透過minikube可以很快速的使用與測試k8s的功能唷～"
+         cardType: "product",
+         content: `與您說明
+亞尼克為提供您最新鮮的產品，全店商品為接單後請師傅生產製作，
+最快為5~7個工作天後可配達，送達最佳藏鮮日為兩天（賞味期為到貨日隔天）
+
+常見問題：已收到『出貨通知』但尚未收到訂購商品？
+
+您好，訂單顯示通知已配送僅表示已交給由工廠排單製作，並非實際出貨日。
+正確到貨日，會透過【簡訊】通知您，但因也有可能會因您所在的地點收訊不理想、手機簡訊儲存容量已滿、或手機門號本身預設拒收廣告簡訊功能等，而造成無法收到相關訊息。
+故訂購後，若需查詢到貨日，也可洽服務專線：(02)8797-8993，提供收件人姓名、電話進行查詢，謝謝您 
+雙捲禮盒內
+
+十勝生乳捲為長度約12cm(長度約為一般常態單條裝生乳捲之三分之二長) `
        },
        {
          id: 2,
          imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
          title: '兩個小孩的托育費用就高達26500元',
+         cardType: "image",
          booking: true
        },
        {
          id: 3,
          imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
          title: '兩個小孩的托育費用就高達26500元',
+         cardType: "image",
          booking: false
        }];
 
      this.setState({ infos: datas});
+     this.setState({ filterText: ""});
   }
 
   _onRefresh() {
@@ -80,12 +94,12 @@ export default class Home extends Component {
 
     this.setState({refreshing: false});
   }
-  
- 
+
+
   render() {
     let _scrollView: ScrollView;
     let _card: Card;
-    
+
     let contentHeight: 0;
     let scrollViewHeight: 0;
     const offsetPage = 60;
@@ -106,12 +120,14 @@ export default class Home extends Component {
             component: Detail,
             backButtonTitle: 'Back',
             passProps: {info: this.state.infos[cardID]},
+            interactivePopGestureEnabled:1,
+            navigationBarHidden: 0,
           });
       }
     };
 
     bookingPress = (cardID) => {
-      let m = this.state.infos;		
+      let m = this.state.infos;
       m[cardID].booking = (m[cardID].booking)?false: true;
       this.setState({info : m})
     }
@@ -129,7 +145,7 @@ export default class Home extends Component {
       console.log("total:" + (event.nativeEvent.contentOffset.y + this.scrollViewHeight));
 
       if((event.nativeEvent.contentOffset.y + this.scrollViewHeight + offsetPage) >= this.contentHeight) {
-        
+
         let id = this.state.infos.length;
 
         var datas = {
@@ -140,7 +156,7 @@ export default class Home extends Component {
         };
 
         let d = this.state.infos.push(datas);
-        
+
         this.setState({ infos: this.state.infos});
       }
 
@@ -156,7 +172,7 @@ export default class Home extends Component {
 
     return (
       <View style={styles.viewBody}>
-        <ScrollView 
+        <ScrollView
           onScroll={(event: Object) => loadData(event)}
           ref={(scrollView) => { _scrollView = scrollView; }}
           onContentSizeChange={(w, h) => this.contentHeight = h}
@@ -170,8 +186,12 @@ export default class Home extends Component {
           >
            <TextInput
             style={styles.filterInput}
-            onChangeText={(text) => this.setState({text})}
-            value={this.state.text}
+            onChangeText={(text) => this.setState({filterText: text})}
+            value={this.state.filterText}
+            placeholder="請輸入任何關鍵字"
+            placeholderTextColor="#ccc"
+            selectionColor="#fff"
+            onFocus= {() => this.setState({filterText : ''})}
           />
           {this.state.infos.map(function(d) {
             return <Card
@@ -197,7 +217,7 @@ var toolbarActions = [
 
 const styles = StyleSheet.create({
   viewBody: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#E8EAF6',
   },
   filterInput: {
     borderRadius: 5,
@@ -212,6 +232,8 @@ const styles = StyleSheet.create({
     borderBottomWidth : 1,
     borderLeftWidth : 1,
     padding: 8,
+    backgroundColor: '#5C6BC0',
+    color: "#fff"
   },
   toolbar: {
     backgroundColor: 'dodgerblue',

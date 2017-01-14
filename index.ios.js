@@ -45,6 +45,9 @@ export default class listApp extends Component {
         <NavigatorIOS
             initialRoute={routes[0]}
             style={{flex: 1}}
+            titleTextColor='#fff'
+            barTintColor="#3F51B5"
+            tintColor="#fff"
             initialRouteStack={routes}
             interactivePopGestureEnabled={true}
             />

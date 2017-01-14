@@ -48,6 +48,41 @@ export default class Detail extends Component {
 
   renderContent() {
     console.log(this.props.info);
+
+    switch (this.props.info.cardType) {
+
+      case 'product':
+        return (
+          <View> 
+              <Image
+                  style={styles.image}
+                  source={{uri : this.props.info.imgUrl}}
+                />
+              <Text style={styles.title}>{this.props.info.title}</Text>
+              <Text style={styles.content}>{this.props.info.content}</Text>
+            </View>
+          )
+
+      case 'image':
+        return (
+            <View>
+              
+              <Image
+                  style={styles.image}
+                  source={{uri : this.props.info.imgUrl}}
+                />
+              <Text style={styles.title}>{this.props.info.title}</Text>
+            </View>
+            )
+      case 'text':
+      default:
+        return (<Text style={styles.content}>
+                {this.props.info.content}
+              </Text>)
+    
+      
+
+    }
     if(this.props.info.cardType === 'text') {
       return (<Text style={styles.content}>
                 {this.props.info.content}
