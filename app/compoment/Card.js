@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     width: cardWidth,
     marginLeft: cardMargin,
     marginRight: cardMargin,
+    borderRadius: 6
   },
   cardImage: {
     width: cardWidth,
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
   cardBookmark: {
     width: 32,
     height: 32,
-    tintColor: '#757575',
+    tintColor: '#3949AB',
   },
   cardBar: {
     flex: 1,
