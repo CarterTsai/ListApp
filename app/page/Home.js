@@ -152,7 +152,8 @@ export default class Home extends Component {
          id: id,
          imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
          title: '兩個小孩的托育費用就高達26500元',
-         booking: true
+         booking: true,
+         cardType: "image",
         };
 
         let d = this.state.infos.push(datas);
@@ -222,8 +223,8 @@ const styles = StyleSheet.create({
   filterInput: {
     borderRadius: 5,
     marginTop: 10,
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: 6,
+    marginRight: 6,
     height: 35, 
     borderColor: 'gray', 
     borderWidth : 1,

@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     tintColor: '#3949AB',
+    top: 10
   },
   cardBar: {
     flex: 1,
