@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     borderBottomColor: "#ccc",
     paddingBottom: 15,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
+    shadowColor: "#1A237E",
+    shadowOpacity: 0.9,
     shadowRadius: 2,
     shadowOffset: {
-      height: 1,
-      width:1
+      height: 2,
+      width: 1
     },
     width: cardWidth,
     marginLeft: cardMargin,
