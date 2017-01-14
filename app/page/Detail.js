@@ -18,6 +18,7 @@ import {
   RefreshControl,
   Navigator,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 
 var {height, width} = Dimensions.get('window');
@@ -59,6 +60,7 @@ export default class Detail extends Component {
                   source={{uri : this.props.info.imgUrl}}
                 />
               <Text style={styles.title}>{this.props.info.title}</Text>
+              {this.renderProductBtn()}
               <Text style={styles.content}>{this.props.info.content}</Text>
             </View>
           )
@@ -101,6 +103,15 @@ export default class Detail extends Component {
     }
   }
   
+  renderProductBtn = () => {
+    if (this.props.info.cardType === "product") {
+      return (<TouchableOpacity style={styles.orderButton} onPress={this.onButtonPress}>
+        <Text style={styles.orderButtonText}> 立即購買</Text>
+      </TouchableOpacity>)
+    } else {
+      return null;
+    }
+  }
  
   render() {
     let _scrollView: ScrollView;
@@ -212,4 +223,18 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     fontWeight: 'bold',
   },
+  orderButton: {
+    margin: 20,
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#406E9F',
+    borderRadius: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  orderButtonText: {
+    fontSize: 20,
+    color: "#ffffff"
+  }
 });
