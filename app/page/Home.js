@@ -245,15 +245,6 @@ export default class Home extends Component {
 
     return (
       <View style={styles.viewBody}>
-         <TextInput
-            style={styles.filterInput}
-            onChangeText={fileterDataFunc.bind(this)}
-            value={this.state.filterText}
-            placeholder="請輸入任何關鍵字"
-            placeholderTextColor="#ccc"
-            selectionColor="#fff"
-            onFocus= {() => this.setState({filterText : ''})}
-          />
         <ScrollView
           style={styles.scroll}
           onScroll={(event: Object) => loadData(event)}
@@ -267,6 +258,15 @@ export default class Home extends Component {
               onRefresh={this._onRefresh.bind(this)}
           />}
           >
+           <TextInput
+            style={styles.filterInput}
+            onChangeText={fileterDataFunc.bind(this)}
+            value={this.state.filterText}
+            placeholder="請輸入任何關鍵字"
+            placeholderTextColor="#ccc"
+            selectionColor="#fff"
+            onFocus= {() => this.setState({filterText : ''})}
+          />
           {this.state.infos.map(function(d) {
             return <Card
                          ref={(card) => {_card = card;} }
@@ -295,14 +295,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8EAF6',
   },
   scroll: {
-    marginTop: 70,
+    marginTop: 65,
   },
   filterInput: {
     borderRadius: 5,
-    top: 70,
+    top: -56,
     marginTop: 0,
     marginLeft: 6,
     marginRight: 6,
+    marginBottom: 8,
     height: 35, 
     borderColor: 'gray', 
     borderWidth : 1,
