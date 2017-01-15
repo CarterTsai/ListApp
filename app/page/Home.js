@@ -29,6 +29,16 @@ var NativeMethodsMixin = require('NativeMethodsMixin');
 
 const iconPath = "../icon";
 
+Array.prototype.clean = function(deleteValue) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == deleteValue) {         
+      this.splice(i, 1);
+      i--;
+    }
+  }
+  return this;
+};
+
 export default class Home extends Component {
 
   constructor(props) {
@@ -90,19 +100,26 @@ export default class Home extends Component {
        {
          id: 2,
          imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
-         title: '兩個小孩的托育費用就高達26500元',
+         title: '天真啊啊兩個小孩的托育費用就高達26500元',
          cardType: "image",
          booking: true
        },
        {
          id: 3,
          imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
-         title: '兩個小孩的托育費用就高達26500元',
+         title: '我在做測試兩個小孩的托育費用就高達26500元',
+         cardType: "image",
+         booking: false
+       },
+        {
+         id: 4,
+         imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/9/MAI_144434087.png',
+         title: '十勝生乳捲-雙捲禮盒(原味&原味)十勝生乳捲-雙捲禮盒(原味&原味)',
          cardType: "image",
          booking: false
        }];
 
-     this.setState({ infos: datas});
+     this.setState({ infos: datas, orignalInfo: datas});
      this.setState({ filterText: ""});
   }
 
@@ -188,29 +205,68 @@ export default class Home extends Component {
       }
     }
 
+    keywordFilter = (value, index, keyword) => {
+      console.dir("keyword");
+      console.log(keyword);
+      console.log(value.title);
+      console.log(value.title.indexOf(value));
+      return value.title.indexOf(value) > 0;
+    }
+
+    fileterDataFunc = (keyWord) => {
+      console.log(!keyWord);
+      if(!keyWord) {
+        console.log(this.state.orignalInfo);
+        this.setState({ infos: this.state.orignalInfo});
+      }
+
+      this.setState({filterText: keyWord})
+      var filterData = this.state.orignalInfo.map((element) => {
+          if(element.title.indexOf(keyWord) >= 0 || !keyWord) {
+            return element;
+          }
+      }).clean();
+
+      if(typeof filterData !== 'undefined' && filterData.length > 0) {
+        this.setState({ infos: filterData});
+      } else {
+        this.setState({ infos :[
+          {
+          id: 99,
+          imgUrl: 'https://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
+          title: '',
+          content: '無資料',
+          cardType: "empty",
+          booking: false
+          }]
+        })
+      }
+    } 
+
     return (
       <View style={styles.viewBody}>
-        <ScrollView
-          onScroll={(event: Object) => loadData(event)}
-          ref={(scrollView) => { _scrollView = scrollView; }}
-          onContentSizeChange={(w, h) => this.contentHeight = h}
-          onLayout={ev => this.scrollViewHeight = ev.nativeEvent.layout.height}
-          refreshControl={
-            <RefreshControl
-              progressViewOffset = {10}
-              refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh.bind(this)}
-          />}
-          >
-           <TextInput
+         <TextInput
             style={styles.filterInput}
-            onChangeText={(text) => this.setState({filterText: text})}
+            onChangeText={fileterDataFunc.bind(this)}
             value={this.state.filterText}
             placeholder="請輸入任何關鍵字"
             placeholderTextColor="#ccc"
             selectionColor="#fff"
             onFocus= {() => this.setState({filterText : ''})}
           />
+        <ScrollView
+          style={styles.scroll}
+          onScroll={(event: Object) => loadData(event)}
+          ref={(scrollView) => { _scrollView = scrollView; }}
+          onContentSizeChange={(w, h) => this.contentHeight = h}
+          onLayout={ev => this.scrollViewHeight = ev.nativeEvent.layout.height}
+          refreshControl={
+            <RefreshControl
+              progressViewOffset = {5}
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+          />}
+          >
           {this.state.infos.map(function(d) {
             return <Card
                          ref={(card) => {_card = card;} }
@@ -238,9 +294,13 @@ const styles = StyleSheet.create({
   viewBody: {
     backgroundColor: '#E8EAF6',
   },
+  scroll: {
+    marginTop: 70,
+  },
   filterInput: {
     borderRadius: 5,
-    marginTop: 10,
+    top: 70,
+    marginTop: 0,
     marginLeft: 6,
     marginRight: 6,
     height: 35, 

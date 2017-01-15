@@ -89,23 +89,39 @@ class Card extends React.Component {
     }
   }
 
+  renderCard() {
+    if(this.props.cardType !== "empty") {
+      return(
+        <View>
+         <TouchableHighlight activeOpacity={100} underlayColor='paleturquoise' onPress={this.props.onPress}>
+                {this.renderContent()}
+         </ TouchableHighlight>
+         <View style={styles.cardBar}>
+            {this.renderPrice()}
+            <TouchableHighlight style={styles.cardBookmarkOutLine}
+                                underlayColor = {'gainsboro'} 
+                                onPress={this.props.onBookingPress}>
+
+                  <Image
+                    style={styles.cardBookmark}
+                    source={this.state.bookingimagePath}
+                  />
+            </ TouchableHighlight>
+          </View>
+        </View>
+      )
+    } else {
+        return(
+            <Text style={styles.emptyCard}>
+            查無資料
+            </Text>)
+    }
+  }
+
   render() {
     return (<View style={styles.card}>
                <Text style={styles.cardTitle}>{this.props.title}</Text>
-              <TouchableHighlight activeOpacity={100} underlayColor='paleturquoise' onPress={this.props.onPress}>
-                {this.renderContent()}
-              </ TouchableHighlight>
-              <View style={styles.cardBar}>
-                {this.renderPrice()}
-                <TouchableHighlight style={styles.cardBookmarkOutLine}
-                                    underlayColor = {'gainsboro'} 
-                                    onPress={this.props.onBookingPress}>
-                      <Image
-                        style={styles.cardBookmark}
-                        source={this.state.bookingimagePath}
-                      />
-                </ TouchableHighlight>
-              </View>
+              {this.renderCard()}
               {this.renderProductBtn()}
           </View>);
   }
@@ -122,7 +138,7 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     flexDirection: 'column',
-    top: (Platform.OS === 'ios') ? 10 : 70,
+    top: (Platform.OS === 'ios') ? -60 : 70,
     marginTop: 5,
     marginBottom: 20,
     paddingHorizontal: 0,
@@ -141,6 +157,11 @@ const styles = StyleSheet.create({
     marginLeft: cardMargin,
     marginRight: cardMargin,
     borderRadius: 6
+  },
+  emptyCard: {
+    fontSize: 50,
+    textAlign: "center",
+    height: height * 0.6
   },
   cardImage: {
     width: cardWidth,
@@ -164,12 +185,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     marginBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20
   },
   cardBookmarkOutLine: {
     borderRadius: 5
   },
   cardPrice: {
-    fontSize: 40,
+    marginTop: 10,
+    fontSize: 30,
     color: Colors.All.Price.Text,
     textAlign: 'center',
     fontWeight: 'bold',
