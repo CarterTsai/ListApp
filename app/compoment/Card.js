@@ -131,8 +131,8 @@ var imgWidth =  (width * 0.95);
 var offsetWidth = (width - imgWidth) / 2;
 var cardWidth = width * 0.96;
 var cardMargin = width * 0.02;
-var cardBookmarkWidth = 32;
-var priceTextWidth = width - 32 - (cardMargin*2) - 30 ;
+var cardBookmarkWidth = 28;
+var priceTextWidth = width - cardBookmarkWidth - (cardMargin*2) - 30 ;
 
 const styles = StyleSheet.create({
   card: {
@@ -188,9 +188,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20
   },
-  cardBookmarkOutLine: {
-    borderRadius: 5
-  },
   cardPrice: {
     marginTop: 10,
     fontSize: 30,
@@ -199,11 +196,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: priceTextWidth,
   },
+  cardBookmarkOutLine: {
+    borderRadius: 5,
+    marginTop:8
+  },
   cardBookmark: {
     width: cardBookmarkWidth,
     height: cardBookmarkWidth,
     tintColor: Colors.Card.Bookmark.Bottom,
-    top: 10
+    margin:6
   },
   cardBar: {
     flex: 1,
