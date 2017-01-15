@@ -52,7 +52,7 @@ export default class Home extends Component {
          cardType: "product",
          datas: {
            title: '【亞尼克菓子工房】十勝生乳捲-雙捲禮盒(原味&原味)',
-           price: 2099000000,
+           price: 209900000,
            content: `與您說明
                     亞尼克為提供您最新鮮的產品，全店商品為接單後請師傅生產製作，
                     最快為5~7個工作天後可配達，送達最佳藏鮮日為兩天（賞味期為到貨日隔天）

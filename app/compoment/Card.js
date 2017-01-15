@@ -116,7 +116,7 @@ var offsetWidth = (width - imgWidth) / 2;
 var cardWidth = width * 0.96;
 var cardMargin = width * 0.02;
 var cardBookmarkWidth = 32;
-var priceTextWidth = width - 32;
+var priceTextWidth = width - 32 - (cardMargin*2) - 30 ;
 
 const styles = StyleSheet.create({
   card: {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     color: Colors.All.Price.Text,
     textAlign: 'center',
     fontWeight: 'bold',
-    width: 350,
+    width: priceTextWidth,
   },
   cardBookmark: {
     width: cardBookmarkWidth,
