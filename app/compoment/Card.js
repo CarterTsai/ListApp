@@ -1,6 +1,6 @@
 import Colors from "../common/Color";
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
   Image,
@@ -20,10 +20,11 @@ var {height, width} = Dimensions.get('window');
 const iconPath = "../icon";
 
 type Props = {
-  title: string;
-  imgUrl: string;
-  booking: boolean;
-  cardType: string,
+  title: PropTypes.string,
+  imgUrl: PropTypes.string,
+  booking: PropTypes.bool,
+  cardType: PropTypes.string,
+  datas: PropTypes.object,
   onPress: () => mixed;
 };
 
@@ -37,6 +38,10 @@ class Card extends React.Component {
                 require('../icon/ic_bookmark/ic_bookmark_black.png') :
                 require('../icon/ic_bookmark/ic_bookmark_border_back.png') 
     }
+  }
+
+  componentDidMount() {
+    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,10 +69,20 @@ class Card extends React.Component {
 
   }
 
+  renderPrice() {
+    if(this.props.cardType === "product") {
+      return <Text style={styles.cardPrice}>NT {this.props.datas.price}</Text>
+    } else {
+      return null;
+    }
+  }
+
+  
   renderProductBtn() {
     if(this.props.cardType === "product") {
-      return (<TouchableOpacity style={styles.orderButton} onPress={this.onButtonPress}>
-                   <Text style={styles.orderButtonText}> 立即購買</Text>
+      return (
+              <TouchableOpacity style={styles.orderButton} onPress={this.onButtonPress}>
+                   <Text style={styles.orderButtonText}>立即購買</Text>
               </TouchableOpacity>)
     } else {
       return null;
@@ -81,6 +96,7 @@ class Card extends React.Component {
                 {this.renderContent()}
               </ TouchableHighlight>
               <View style={styles.cardBar}>
+                {this.renderPrice()}
                 <TouchableHighlight style={styles.cardBookmarkOutLine}
                                     underlayColor = {'gainsboro'} 
                                     onPress={this.props.onBookingPress}>
@@ -98,7 +114,9 @@ class Card extends React.Component {
 var imgWidth =  (width * 0.95);
 var offsetWidth = (width - imgWidth) / 2;
 var cardWidth = width * 0.96;
-var cardMargin = width * 0.02
+var cardMargin = width * 0.02;
+var cardBookmarkWidth = 32;
+var priceTextWidth = width - 32;
 
 const styles = StyleSheet.create({
   card: {
@@ -150,9 +168,16 @@ const styles = StyleSheet.create({
   cardBookmarkOutLine: {
     borderRadius: 5
   },
+  cardPrice: {
+    fontSize: 40,
+    color: Colors.All.Price.Text,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    width: 350,
+  },
   cardBookmark: {
-    width: 32,
-    height: 32,
+    width: cardBookmarkWidth,
+    height: cardBookmarkWidth,
     tintColor: Colors.Card.Bookmark.Bottom,
     top: 10
   },

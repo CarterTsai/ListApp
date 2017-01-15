@@ -43,20 +43,29 @@ export default class Home extends Component {
 
   componentDidMount() {
      let datas =
-      [{
-         id: 0,
-         imgUrl: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
-         title: '新聞',
-         booking: true,
-         cardType: "text",
-         content: "俄羅斯總統普亭(Vladimir Putin)在周五(23日)的全國年度電視新聞訪問中，向白宮及民主黨人呼籲，面對美國總統當選人川普(Donald Trump)的勝利，不要當一個「病態的輸家」(sore losers)。似乎是回應美國對俄羅斯干預美國大選的指控。訪談中也提到了對核武發展的看法"
-       },
+      [
        {
-         id: 1,
+         id: 0,
          imgUrl: 'https://mart.ibon.com.tw/mdz_file/item/07/02/06/1612/16120003563G_intr_l_1_161207165645.jpg',
          title: '【亞尼克菓子工房】十勝生乳捲-雙捲禮盒(原味&原味)',
          booking: false,
          cardType: "product",
+         datas: {
+           title: '【亞尼克菓子工房】十勝生乳捲-雙捲禮盒(原味&原味)',
+           price: 2099000000,
+           content: `與您說明
+                    亞尼克為提供您最新鮮的產品，全店商品為接單後請師傅生產製作，
+                    最快為5~7個工作天後可配達，送達最佳藏鮮日為兩天（賞味期為到貨日隔天）
+
+                    常見問題：已收到『出貨通知』但尚未收到訂購商品？
+
+                    您好，訂單顯示通知已配送僅表示已交給由工廠排單製作，並非實際出貨日。
+                    正確到貨日，會透過【簡訊】通知您，但因也有可能會因您所在的地點收訊不理想、手機簡訊儲存容量已滿、或手機門號本身預設拒收廣告簡訊功能等，而造成無法收到相關訊息。
+                    故訂購後，若需查詢到貨日，也可洽服務專線：(02)8797-8993，提供收件人姓名、電話進行查詢，謝謝您 
+                    雙捲禮盒內
+
+                    十勝生乳捲為長度約12cm(長度約為一般常態單條裝生乳捲之三分之二長) `
+         },
          content: `與您說明
 亞尼克為提供您最新鮮的產品，全店商品為接單後請師傅生產製作，
 最快為5~7個工作天後可配達，送達最佳藏鮮日為兩天（賞味期為到貨日隔天）
@@ -69,6 +78,14 @@ export default class Home extends Component {
 雙捲禮盒內
 
 十勝生乳捲為長度約12cm(長度約為一般常態單條裝生乳捲之三分之二長) `
+       },
+       {
+         id: 1,
+         imgUrl: 'http://d2ku7ggsvxaz7z.cloudfront.net/images/bam/3/MAI_180418427.jpg',
+         title: '新聞',
+         booking: true,
+         cardType: "text",
+         content: "俄羅斯總統普亭(Vladimir Putin)在周五(23日)的全國年度電視新聞訪問中，向白宮及民主黨人呼籲，面對美國總統當選人川普(Donald Trump)的勝利，不要當一個「病態的輸家」(sore losers)。似乎是回應美國對俄羅斯干預美國大選的指控。訪談中也提到了對核武發展的看法"
        },
        {
          id: 2,
@@ -201,6 +218,7 @@ export default class Home extends Component {
                          booking={d.booking}
                          cardType={d.cardType}
                          content={d.content}
+                         datas={d.datas}
                          imgUrl={d.imgUrl}
                          title={d.title}
                          onBookingPress={this.bookingPress.bind(this, d.id)}

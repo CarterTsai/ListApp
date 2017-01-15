@@ -4,6 +4,9 @@ let Color = {
             Background: "#406E9F",
             Text: "#ffffff",
         },
+        Price: {
+            Text: "red"
+        }
     },
     Bar : {
         Title: "#fff",

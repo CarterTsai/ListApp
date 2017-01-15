@@ -106,9 +106,12 @@ export default class Detail extends Component {
   
   renderProductBtn = () => {
     if (this.props.info.cardType === "product") {
-      return (<TouchableOpacity style={styles.orderButton} onPress={this.onButtonPress}>
-        <Text style={styles.orderButtonText}> 立即購買</Text>
-      </TouchableOpacity>)
+      return (<View>
+                <Text style={styles.PriceText}>NT {this.props.info.datas.price}</Text>
+                <TouchableOpacity style={styles.orderButton} onPress={this.onButtonPress}>
+                  <Text style={styles.orderButtonText}> 立即購買</Text>
+                </TouchableOpacity>
+              </View>)
     } else {
       return null;
     }
@@ -237,5 +240,12 @@ const styles = StyleSheet.create({
   orderButtonText: {
     fontSize: 20,
     color: Colors.All.OrderButton.Text
-  }
+  },
+  PriceText: {
+    fontSize: 40,
+    color: Colors.All.Price.Text,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    width: width,
+  },
 });
