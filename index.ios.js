@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import Home from "./app/page/Home";
 import Detail from "./app/page/Detail";
+import Colors from "./app/common/Color";
 
 import {
   AppRegistry,
@@ -22,7 +23,7 @@ export default class listApp extends Component {
   }
 
   componentDidMount() {
-
+    
   }
   
   render() {
@@ -45,9 +46,9 @@ export default class listApp extends Component {
         <NavigatorIOS
             initialRoute={routes[0]}
             style={{flex: 1}}
-            titleTextColor='#fff'
-            barTintColor="#3F51B5"
-            tintColor="#fff"
+            titleTextColor={Colors.Bar.Title}
+            barTintColor={Colors.Bar.Background}
+            tintColor={Colors.Bar.Botton}
             initialRouteStack={routes}
             interactivePopGestureEnabled={true}
             />

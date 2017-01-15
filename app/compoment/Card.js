@@ -1,6 +1,8 @@
-const React = require('react');
-const ReactNative = require('react-native');
-const {
+import Colors from "../common/Color";
+
+import React, { Component } from 'react';
+
+import {
   Image,
   Text,
   View,
@@ -11,9 +13,10 @@ const {
   Button,
   Platform,
   TouchableOpacity,
-} = ReactNative;
+} from 'react-native';
 
 var {height, width} = Dimensions.get('window');
+
 const iconPath = "../icon";
 
 type Props = {
@@ -105,11 +108,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 20,
     paddingHorizontal: 0,
-    backgroundColor: 'white',
+    backgroundColor: Colors.Card.Background,
     borderBottomWidth: 0,
-    borderBottomColor: "#ccc",
+    borderBottomColor: Colors.Card.Border.Bottom,
     paddingBottom: 15,
-    shadowColor: "#1A237E",
+    shadowColor: Colors.Card.Shadow.Background,
     shadowOpacity: 0.9,
     shadowRadius: 2,
     shadowOffset: {
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
   cardBookmark: {
     width: 32,
     height: 32,
-    tintColor: '#3949AB',
+    tintColor: Colors.Card.Bookmark.Bottom,
     top: 10
   },
   cardBar: {
@@ -164,14 +167,14 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: '#406E9F',
+    backgroundColor: Colors.All.OrderButton.Background,
     borderRadius: 9,
     alignItems: 'center',
     justifyContent: 'center',
   },
   orderButtonText: {
     fontSize: 20,
-    color: "#ffffff"
+    color: Colors.All.OrderButton.Text
   }
 });
 

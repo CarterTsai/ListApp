@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import Colors from "../common/Color";
 
 import {
   AppRegistry,
@@ -228,13 +229,13 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: '#406E9F',
+    backgroundColor: Colors.All.OrderButton.Background,
     borderRadius: 9,
     alignItems: 'center',
     justifyContent: 'center',
   },
   orderButtonText: {
     fontSize: 20,
-    color: "#ffffff"
+    color: Colors.All.OrderButton.Text
   }
 });
